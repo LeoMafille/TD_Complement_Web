@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+	
+	<body>
+		<h1>Index</h1>
+		{{#user}}
+			{{.}}
+		{{/user}}
+		{{^user}}
+			<h2>Connexion</h2>
+			<form method="POST" action="/login">
+				<table>
+					<tr><td><label>Identifiant </label></td><td><input type="textbox" name="username"/></td></tr>
+					<tr><td><label>Mot de passe </label></td><td><input type="textbox" name="pwd"/></td></tr>
+				</table>
+				<input type="submit" name="submitConnexion" value="Confirmer"/>
+			</form>
+		{{/user}}
+	</body>
+</html>
