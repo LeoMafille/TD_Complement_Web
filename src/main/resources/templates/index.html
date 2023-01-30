@@ -6,10 +6,12 @@
 {{/msg}}
 <ul>
     {{#items}}
-    <li>{{nom}}
+    <li>
         <div class="ui rating" data-max-rating="{{evaluation}}"></div>
         <a class="ui circular mini icon button" href="/inc/{{nom}}"><i class="ui plus icon"></i> </a>
-        <a class="ui circular mini icon button" href="/dec/{{nom}}"><i class="ui minus icon"></i> </a></li>
+        <a class="ui circular mini icon button" href="/dec/{{nom}}"><i class="ui minus icon"></i> </a>
+        <a class="ui circular mini icon button" href="/items/delete/{{nom}}"><i class="ui delete icon"></i> </a>
+        {{nom}}</li>
     {{/items}}
 </ul>
 {{> include/footer }}

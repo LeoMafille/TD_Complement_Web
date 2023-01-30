@@ -16,7 +16,6 @@ class ItemsController {
         return "index"
     }
 
-
     private fun getItemByName(nom:String, items:HashSet<item>):item?=items.find {nom == it.nom }
 
     private fun addMsg(resp:Boolean,attrs: RedirectAttributes,title:String,success:String,error:String) {
@@ -93,6 +92,23 @@ class ItemsController {
                 "Mise à jour",
                 "$nom décrémenté",
                 "$nom n'existe pas dans les items"
+        )
+        return RedirectView("/")
+    }
+
+    @GetMapping("/items/delete/{nom}")
+    fun deleteAction(
+            @PathVariable nom:String,
+            @SessionAttribute("items") items:HashSet<item>,
+            attrs:RedirectAttributes
+    ):RedirectView{
+
+        addMsg(
+                items.remove(item(nom)),
+                attrs,
+                "Suppression",
+                "$nom supprimé",
+                "$nom n'existe pas"
         )
         return RedirectView("/")
     }
