@@ -2,17 +2,11 @@
 <h1>Gestion d'items</h1>
 <a class="ui button" href="/new">Ajouter un item...</a>
 {{#msg}}
-    {{> include/message }}
+    {{> include/message}}
 {{/msg}}
 <ul>
 {{#items}}
-    <li>{{nom}}
-        <div class="ui rating" data-max-rating="{{evaluation}}"></div>
-        <a class="ui circular mini icon button" href="/inc/{{nom}}"><i class="ui plus icon"></i> </a>
-        <a class="ui circular mini icon button" href="/dec/{{nom}}"><i class="ui minus icon"></i> </a></li>
+    <li>{{nom}}</li>
 {{/items}}
 </ul>
 {{> include/footer }}
-<script>
-    $(".ui.rating").rating();
-</script>

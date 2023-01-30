@@ -1,4 +1,4 @@
-package edu.spring.td1
+package etu.spring.td1
 
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
