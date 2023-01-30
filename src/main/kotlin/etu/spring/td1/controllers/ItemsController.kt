@@ -3,6 +3,7 @@ package etu.spring.td1.controllers
 import etu.spring.td1.models.item
 import etu.spring.td1.services.UIMessage
 import org.springframework.stereotype.Controller
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
@@ -43,6 +44,17 @@ class ItemsController {
     @RequestMapping("new")
     fun newAction():String{
         return "newForm"
+    }
+
+    @GetMapping("/update/{nom}")
+    fun updateAction(
+            @PathVariable nom:String,
+            @SessionAttribute("items") items:HashSet<item>,
+            model: ModelMap
+    ):String {
+        val item = getItemByName(nom,items)
+        model["item"]=item
+        return "itemForm"
     }
 
     @PostMapping("/addNew")
@@ -94,6 +106,14 @@ class ItemsController {
                 "$nom n'existe pas dans les items"
         )
         return RedirectView("/")
+    }
+
+    @GetMapping("items/update/{nom}")
+    fun updateAction(
+            @PathVariable nom:String,
+            @SessionAttribute("items") items:HashSet<item>,
+    ){
+        
     }
 
     @GetMapping("/items/delete/{nom}")
