@@ -1,4 +1,4 @@
-package edu.spring.td2.entities
+package edu.spring.dogs.entities
 
 import jakarta.persistence.*
 
@@ -28,6 +28,7 @@ open class Master() {
 	fun addDog(dog: Dog):Boolean{
 		if(!dogs.contains(dog)){
 			dogs += dog
+			dog.master = this
 			return true
 		}
 		return false

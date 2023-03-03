@@ -1,4 +1,4 @@
-package edu.spring.td2.entities
+package edu.spring.dogs.entities
 
 import jakarta.persistence.*
 
