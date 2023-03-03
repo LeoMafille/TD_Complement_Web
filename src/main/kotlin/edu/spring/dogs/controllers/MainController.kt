@@ -5,13 +5,21 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.GetMapping
+import edu.spring.dogs.repositories.MasterRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.ui.ModelMap
 
 @Controller
 class MainController {
 	
+	@Autowired
+	lateinit var masterRepos: MasterRepository
+	
 	@RequestMapping("/", "")
-	fun indexAction(){
+	fun indexAction(modelMap: ModelMap):String{
+		modelMap["proprios"]=masterRepos.findAll()
 		
+		return "index"
 	}
 	
 	@PostMapping("/master/add")
