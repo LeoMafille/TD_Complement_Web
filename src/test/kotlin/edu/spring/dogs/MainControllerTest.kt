@@ -55,17 +55,14 @@ class MainControllerTest {
 
     @Test
     fun displayOneUserWithOneDog() {
-        val master=Master("Bob", "MockDuke")
-        val dog=Dog("MockDog")
+        val master = Master("Bob", "MockDuke")
+        val dog = Dog("MockDog")
         master.dogs.add(dog)
         `when`(masterRepository.findAll()).thenReturn(listOf(master))
         `when`(dogRepository.findAll()).thenReturn(listOf(dog))
         this.mockMvc.perform(
-            get("/")).
-        andExpect(status().isOk).
-        andExpect(content().string(containsString("MockDuke")))
+                get("/")).andExpect(status().isOk).andExpect(content().string(containsString("MockDuke")))
     }
-
 
     @Test
     fun displayOneUserWithOneDogAndOneSPADog() {

@@ -13,9 +13,11 @@ open class Dog() {
     open var id:Int?=0
     
 	open lateinit var name:String
-    
+
+	@ManyToOne
 	open var master:Master?=null
 	
-	@OneToMany()
-	open var toys:Set<Toy> = mutableSetOf<Toy>()
+	@OneToMany
+	open var toys:MutableSet<Toy> = mutableSetOf<Toy>()
+
 }

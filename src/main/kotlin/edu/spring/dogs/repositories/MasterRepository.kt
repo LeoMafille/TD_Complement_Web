@@ -7,5 +7,5 @@ import edu.spring.dogs.entities.Dog
 
     @Repository
     interface MasterRepository: CrudRepository<Master, Int> {
-
+        public fun findByDogsName(name: String) : List<Master>
     }

@@ -7,5 +7,5 @@ import edu.spring.dogs.entities.Dog
 
 	@Repository
 	interface ToyRepository: CrudRepository<Toy, Int> {
-	
+		fun findByType(type:String) : List<Toy>
 	}

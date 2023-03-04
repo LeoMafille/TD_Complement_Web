@@ -11,18 +11,19 @@ open class Master() {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    open var id:Int?=0
+    open var id:Int=0
     open lateinit var firstname:String
 	open lateinit var lastname:String
 	
-	@OneToMany(cascade=[])
-    open var dogs:Set<Dog> = mutableSetOf<Dog>()
+	@OneToMany(cascade=[CascadeType.PERSIST, CascadeType.MERGE])
+    open var dogs:MutableSet<Dog> = mutableSetOf<Dog>()
 	
 	@PreRemove
 	fun preRemove():Unit{
 		for(dog in dogs){
 			dog.master = null
 		}
+		dogs.clear()
 	}
 	
 	fun addDog(dog: Dog):Boolean{

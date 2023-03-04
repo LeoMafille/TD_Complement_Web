@@ -7,20 +7,15 @@ import edu.spring.dogs.entities.Dog
     @Repository
     interface DogRepository: CrudRepository<Dog, Int> {
 		
-		open fun findByMasterIsNull():Set<Dog>{
-			var doggos : Set<Dog> = mutableSetOf<Dog>()
-			
+		fun findByMasterIsNull():List<Dog>{
+			var doggos : MutableList<Dog> = mutableListOf<Dog>()
 			for(dog in findAll()){
 				if(dog.master == null) doggos += dog
 			}
-			
 			return doggos
 		}
 		
-		open fun findByNameAndMasterId(name:String, id:Int):Dog?{
-			for(dog in findAll()){
-				if(dog.name == name && dog.master?.id == id) return dog;
-			}
-			return null
+		fun findByNameAndMasterId(name:String, id:Int):Dog?{
+			return findAll().find { it.name.equals(name) && it.master?.id == id }
 		}
     }
