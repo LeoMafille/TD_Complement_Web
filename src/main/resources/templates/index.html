@@ -1,7 +1,111 @@
 {{> main/header }}
 
-<h1>Accueil</h1>
-{{#proprios}}
-	<li><p>{{firstname}} {{lastname}}</p><a class="ui circular mini icon button" href="/master/{{id}}"><i class="ui plus icon"></i></a>
-{{/proprios}}
+<h3>Propriétaires<div class="ui blue left pointing label">{{proprios.size}}</div></h3>
+
+
+<div class="ui info message top attached"><i class="info icon"></i>Ajout rapide de propriétaire</div>
+<div class="ui segment bottom attached">
+	<form action="/master/add" object="${master}" method="post">
+		<div class="ui input">
+			<input type="text" name="firstname" placeholder="First Name"/>
+			<input type="text" name="lastname" placeholder="Last Name"/>
+			<button class="ui icon button right attached" name="addButton"><i class="plus icon"></i></button>
+		</div>
+	</form>
+</div>
+
+<table class="ui celled table">
+	<thead><th>Propriétaire</th><th>Actions</th></thead>
+	{{#proprios}}
+	<tr>
+		<td>
+			{{firstname}} {{lastname}}
+			<div class="ui label">
+				<i class="dog icon"></i>{{dogs.size}}
+			</div>
+		</td>
+		<td>
+
+			<form action="/master/{{id}}/dog" object="${dog}" method="post">
+				<div class="ui input">
+					<input type="text" name="name" placeholder="Dog name">
+				</div>
+				<form action="/master/{{id}}/dog" object="${dog}}", method="post">
+					<div class="ui floated right buttons">
+						<button class="ui button negative" name="dog-action" value="giveup">Abandonner</button>
+						<span class="or" data-text="ou"></span>
+						<button class="ui button positive" name="dog-action" value="add">Acquérir</button>
+					</div>
+				</form>
+
+				<a class="ui black button" href="/master/{{id}}/delete">💀ded💀</a>
+			</form>
+
+
+		</td>
+	</tr>
+	{{/proprios}}
+	{{^proprios}}
+	<tr>
+		<td colspan="2">
+			<div class="ui warning message">
+				<table>
+					<td>
+						<i class="huge exclamation circle icon"></i>
+					</td>
+					<td>
+						<b>Pas de maître</b><br/>
+						Il n'y a pas de maître dans la base de données
+					</td>
+				</table>
+			</div>
+		</td>
+	</tr>
+	{{/proprios}}
+</table>
+
+<h1>Chiens à l'adoption<div class="ui red left pointing label">{{dogsAdoption.size}}</div></h1>
+
+<table class="ui celled table">
+	<thead><th>Chien</th><th>Actions</th></thead>
+	{{#dogsAdoption}}
+	<tr>
+		<td>{{name}}</td>
+		<td>
+			<div class="ui action input">
+				<select class="ui search dropdown" {{^proprios}}disabled{{/proprios}}>
+					{{#proprios}}
+					<option value="{{id}}">{{firstname}} {{lastname}}</option>
+					{{/proprios}}
+					{{^proprios}}
+					<option selected value="">Aucun maître dans la base de données</option>
+					{{/proprios}}
+				</select>
+				<button class="ui button" {{^proprios}}disabled{{/proprios}}><i class="plus icon"></i></button>
+			</div>
+
+			<button class="ui red button" href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
+		</td>
+	</tr>
+	{{/dogsAdoption}}
+	{{^dogsAdoption}}
+	<tr>
+		<td colspan="2">
+			<div class="ui positive message">
+				<table>
+					<td>
+						<i class="huge info circle icon"></i>
+					</td>
+					<td>
+						<b>Pas de chien</b><br/>
+						Il n'y a pas de chien à l'adoption dans la base de données
+					</td>
+
+				</table>
+			</div>
+		</td>
+	</tr>
+	{{/dogsAdoption}}
+</table>
+
 {{> main/footer }}
