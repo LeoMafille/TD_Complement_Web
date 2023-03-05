@@ -64,32 +64,19 @@ class MainController {
 						dogRepos.save(newDog)
 					}
 				}
-				"giveup" -> {
-					if(dogRepos.findByNameAndMasterId(dog.name, id) != null){
-						dog.master = null
-						dogRepos.save(dog)
+				"give-up" -> {
+					if(master != null){
+						var remDog = dogRepos.findByNameAndMasterId(dog.name, id)
+						if(remDog != null){
+							master.giveUpDog(remDog)
+							dogRepos.save(remDog)
+						}
 					}
 				}
 			}
 		}
 		return RedirectView("/")
 	}
-
-	/*
-	@GetMapping("/master/{id}/delete")
-	fun deleteMaster(
-		@PathVariable id:Int
-	): RedirectView {
-		val master = masterRepos.findById(id).orElse(null)
-
-		if(master!=null){
-			master.preRemove()
-			masterRepos.delete(master)
-		}
-		return RedirectView("/")
-	}
-	*/
-
 	@GetMapping("master/{id}/delete")
 	fun deleteMaster(@PathVariable id:Int): RedirectView {
 		val master = masterRepos.findById(id).orElse(null)
@@ -102,11 +89,27 @@ class MainController {
 		}
 		return RedirectView("/")
 	}
-
 	@PostMapping("/dog/{id}/action")
 	fun manageDogById(
-		@PathVariable id:Int
-	){
-		
+			@PathVariable id:Int,
+			@RequestParam("dog-action") action: String,
+			@RequestParam("choixMaitre") idMaitre: Int
+	):RedirectView{
+		val dog=dogRepos.findById(id).orElse(null)
+		val master=masterRepos.findById(idMaitre).orElse(null)
+		masterRepos.save(master)
+		if(master!=null){
+			when (action){
+				"remove" -> {
+					dogRepos.delete(dog)
+				}
+				"adopt" -> {
+					dog.master = master;
+					master.addDog(dog)
+					dogRepos.save(dog)
+				}
+			}
+		}
+		return RedirectView("/")
 	}
 }

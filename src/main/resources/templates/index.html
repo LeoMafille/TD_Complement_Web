@@ -20,7 +20,7 @@
 	<tr>
 		<td>
 			{{firstname}} {{lastname}}
-			<div class="ui label count-masters-dogs">
+			<div class="ui label count-master-dogs">
 				<i class="dog icon"></i>{{dogs.size}}
 			</div>
 		</td>
@@ -51,7 +51,7 @@
 					</td>
 					<td>
 						<b>Pas de maître</b><br/>
-						Il n'y a pas de maître dans la base de données
+						Il n'y a pas de maître dans la base de données.
 					</td>
 				</table>
 			</div>
@@ -60,29 +60,30 @@
 	{{/proprios}}
 </table>
 
-<h1>Chiens à l'adoption<div class="ui red left pointing label count-dogs">{{dogsAdoption.size}}</div></h1>
+<h3>Chiens à l'adoption<div class="ui red left pointing label count-dogs">{{dogsAdoption.size}}</div></h3>
 
 <table class="ui celled table">
 	<thead><th>Chien</th><th>Actions</th></thead>
 	{{#dogsAdoption}}
-	<tr>
-		<td>{{name}}</td>
-		<td>
-			<div class="ui action input">
-				<select class="ui search dropdown" {{^proprios}}disabled{{/proprios}}>
+	<form method="post" action="/dog/{{id}}/action">
+		<tr>
+			<td>{{name}}</td>
+			<td>
+				<div class="ui action input">
+					<select name="choixMaitre" class="ui search dropdown" {{^proprios}}disabled{{/proprios}}>
 					{{#proprios}}
 					<option value="{{id}}">{{firstname}} {{lastname}}</option>
 					{{/proprios}}
 					{{^proprios}}
 					<option selected value="">Aucun maître dans la base de données</option>
 					{{/proprios}}
-				</select>
-				<button class="ui button" value="adopt" name="dog-action" {{^proprios}}disabled{{/proprios}} ><i class="plus icon"></i></button>
-			</div>
-
-			<button class="ui red button" value="remove" name="dog-action"  href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
-		</td>
-	</tr>
+					</select>
+					<button class="ui icon button" value="adopt" name="dog-action" {{^proprios}}disabled{{/proprios}} ><i class="plus icon"></i></button>
+				</div>
+				<button class="ui icon red button" value="remove" name="dog-action"  href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
+			</td>
+		</tr>
+	</form>
 	{{/dogsAdoption}}
 	{{^dogsAdoption}}
 	<tr>
@@ -94,7 +95,7 @@
 					</td>
 					<td>
 						<b>Pas de chien</b><br/>
-						Il n'y a pas de chien à l'adoption dans la base de données
+						Il n'y a pas de chien à l'adoption dans la base de données.
 					</td>
 
 				</table>
