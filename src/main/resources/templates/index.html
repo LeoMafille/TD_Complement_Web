@@ -1,6 +1,6 @@
 {{> main/header }}
 
-<h3>Propriétaires<div class="ui blue left pointing label">{{proprios.size}}</div></h3>
+<h3>Propriétaires<div class="ui blue left pointing label count-masters">{{proprios.size}}</div></h3>
 
 
 <div class="ui info message top attached"><i class="info icon"></i>Ajout rapide de propriétaire</div>
@@ -20,28 +20,24 @@
 	<tr>
 		<td>
 			{{firstname}} {{lastname}}
-			<div class="ui label">
+			<div class="ui label count-masters-dogs">
 				<i class="dog icon"></i>{{dogs.size}}
 			</div>
 		</td>
 		<td>
-
 			<form action="/master/{{id}}/dog" object="${dog}" method="post">
 				<div class="ui input">
 					<input type="text" name="name" placeholder="Dog name">
 				</div>
-				<form action="/master/{{id}}/dog" object="${dog}}", method="post">
-					<div class="ui floated right buttons">
-						<button class="ui button negative" name="dog-action" value="giveup">Abandonner</button>
-						<span class="or" data-text="ou"></span>
-						<button class="ui button positive" name="dog-action" value="add">Acquérir</button>
-					</div>
-				</form>
 
-				<a class="ui black button" href="/master/{{id}}/delete">💀ded💀</a>
+				<div class="ui floated right buttons">
+					<button class="ui button negative" name="dog-action" value="give-up">Abandonner</button>
+					<span class="or" data-text="ou"></span>
+					<button class="ui button positive" name="dog-action" value="add">Acquérir</button>
+				</div>
+
+				<a class="ui black button delete-master" href="/master/{{id}}/delete">💀ded💀</a>
 			</form>
-
-
 		</td>
 	</tr>
 	{{/proprios}}
@@ -64,7 +60,7 @@
 	{{/proprios}}
 </table>
 
-<h1>Chiens à l'adoption<div class="ui red left pointing label">{{dogsAdoption.size}}</div></h1>
+<h1>Chiens à l'adoption<div class="ui red left pointing label count-dogs">{{dogsAdoption.size}}</div></h1>
 
 <table class="ui celled table">
 	<thead><th>Chien</th><th>Actions</th></thead>
@@ -81,10 +77,10 @@
 					<option selected value="">Aucun maître dans la base de données</option>
 					{{/proprios}}
 				</select>
-				<button class="ui button" {{^proprios}}disabled{{/proprios}}><i class="plus icon"></i></button>
+				<button class="ui button" value="adopt" name="dog-action" {{^proprios}}disabled{{/proprios}} ><i class="plus icon"></i></button>
 			</div>
 
-			<button class="ui red button" href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
+			<button class="ui red button" value="remove" name="dog-action"  href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
 		</td>
 	</tr>
 	{{/dogsAdoption}}

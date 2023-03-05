@@ -14,16 +14,13 @@ open class Master() {
     open var id:Int=0
     open lateinit var firstname:String
 	open lateinit var lastname:String
-	
-	@OneToMany(cascade=[CascadeType.PERSIST, CascadeType.MERGE])
-    open var dogs:MutableSet<Dog> = mutableSetOf<Dog>()
+
+	@OneToMany(mappedBy = "master", fetch = FetchType.EAGER, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    open var dogs = mutableSetOf<Dog>()
 	
 	@PreRemove
-	fun preRemove():Unit{
-		for(dog in dogs){
-			dog.master = null
-		}
-		dogs.clear()
+	fun preRemove(){
+		dogs.forEach { it.master = null }
 	}
 	
 	fun addDog(dog: Dog):Boolean{
