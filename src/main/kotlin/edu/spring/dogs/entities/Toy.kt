@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 open class Toy() {
-	constructor(label:String,type:String) : this(){
+	constructor(type:String,label:String) : this(){
 		this.label=label
 		this.type=type
 	}

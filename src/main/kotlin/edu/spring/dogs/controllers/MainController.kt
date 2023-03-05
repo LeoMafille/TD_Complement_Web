@@ -28,10 +28,8 @@ class MainController {
 	
 	@RequestMapping("/", "")
 	fun indexAction(modelMap: ModelMap):String{
-
 		modelMap["proprios"]=masterRepos.findAll()
 		modelMap["dogsAdoption"]=dogRepos.findByMasterIsNull()
-
 		return "index"
 	}
 	

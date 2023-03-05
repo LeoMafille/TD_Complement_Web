@@ -65,25 +65,25 @@
 <table class="ui celled table">
 	<thead><th>Chien</th><th>Actions</th></thead>
 	{{#dogsAdoption}}
-	<form method="post" action="/dog/{{id}}/action">
-		<tr>
-			<td>{{name}}</td>
-			<td>
-				<div class="ui action input">
+	<tr>
+		<td>{{name}}</td>
+		<td>
+			<div class="ui action input">
+				<form method="post" action="/dog/{{id}}/action">
 					<select name="choixMaitre" class="ui search dropdown" {{^proprios}}disabled{{/proprios}}>
 					{{#proprios}}
 					<option value="{{id}}">{{firstname}} {{lastname}}</option>
 					{{/proprios}}
 					{{^proprios}}
-					<option selected value="">Aucun maître dans la base de données</option>
+					<option selected value="">Pas d'adoptant</option>
 					{{/proprios}}
 					</select>
-					<button class="ui icon button" value="adopt" name="dog-action" {{^proprios}}disabled{{/proprios}} ><i class="plus icon"></i></button>
-				</div>
-				<button class="ui icon red button" value="remove" name="dog-action"  href="" {{^proprios}}disabled{{/proprios}}><i class="sign out icon"></i></button>
-			</td>
-		</tr>
-	</form>
+					<button class="ui icon button" value="adopt" name="dog-action"><i class="plus icon"></i></button>
+					<button class="ui red icon button" name="dog-action" value="remove"><i class="sign out icon"></i></button>
+				</form>
+			</div>
+		</td>
+	</tr>
 	{{/dogsAdoption}}
 	{{^dogsAdoption}}
 	<tr>
